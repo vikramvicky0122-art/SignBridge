@@ -631,14 +631,15 @@ const VideoCall: React.FC = () => {
                     <div className="absolute inset-0 bg-neutral-900/40 backdrop-blur-sm z-10 pointer-events-none" />
                   )}
                   {callMode === 'deaf' && (
-                    <div className="absolute top-4 right-4 w-40 h-40 md:w-64 md:h-64 rounded-3xl overflow-hidden shadow-2xl border-4 border-indigo-500/50 bg-black z-20">
+                    <div className="absolute top-6 right-6 w-[280px] md:w-[400px] aspect-video rounded-3xl overflow-hidden shadow-2xl border-2 border-indigo-500/30 bg-black/40 backdrop-blur-md z-20">
                       <video 
                         ref={signVideoRef}
-                        className="w-full h-full object-contain"
+                        className="w-full h-full object-cover"
                         muted
                         playsInline
                       />
-                      <div className="absolute bottom-2 left-2 bg-indigo-600 text-[8px] font-bold text-white px-2 py-0.5 rounded uppercase">
+                      <div className="absolute top-2 left-2 bg-indigo-600/80 backdrop-blur-sm text-[10px] font-bold text-white px-2 py-1 rounded-lg uppercase flex items-center gap-1.5">
+                        <Sparkles className="w-3 h-3" />
                         AI Interpreter
                       </div>
                     </div>
