@@ -542,7 +542,7 @@ const VideoCall: React.FC = () => {
 
   return (
     <Layout>
-      <div className="max-w-7xl mx-auto h-full flex flex-col">
+      <div className="max-w-7xl mx-auto h-[calc(100vh-10rem)] flex flex-col">
         {!inCall ? (
           <div className="flex-1 flex items-center justify-center">
             <motion.div
@@ -628,20 +628,13 @@ const VideoCall: React.FC = () => {
                     className="w-full h-full object-cover"
                   />
                   {callMode === 'deaf' && (
-                    <div className="absolute inset-0 bg-neutral-900/40 backdrop-blur-sm z-10 pointer-events-none" />
-                  )}
-                  {callMode === 'deaf' && (
-                    <div className="absolute top-6 right-6 w-[280px] md:w-[400px] aspect-video rounded-3xl overflow-hidden shadow-2xl border-2 border-indigo-500/30 bg-black/40 backdrop-blur-md z-20">
+                    <div className="absolute top-4 right-4 w-32 h-32 md:w-48 md:h-48 rounded-2xl overflow-hidden shadow-lg border-2 border-white/20 bg-neutral-900 z-20">
                       <video 
                         ref={signVideoRef}
                         className="w-full h-full object-cover"
                         muted
                         playsInline
                       />
-                      <div className="absolute top-2 left-2 bg-indigo-600/80 backdrop-blur-sm text-[10px] font-bold text-white px-2 py-1 rounded-lg uppercase flex items-center gap-1.5">
-                        <Sparkles className="w-3 h-3" />
-                        AI Interpreter
-                      </div>
                     </div>
                   )}
                   {callMode === 'speaking' && detectedSign && (
@@ -767,6 +760,15 @@ const VideoCall: React.FC = () => {
                   </button>
                 </div>
               </div>
+              
+              {/* Separate Transcript Box directly below controls */}
+              {transcript && (
+                <div className="bg-neutral-900 p-6 rounded-[2rem] border-4 border-neutral-800 shadow-xl overflow-y-auto max-h-40 min-h-[5rem] custom-scrollbar mb-2 flex items-center justify-center">
+                  <p className="text-white text-center text-base md:text-xl font-medium break-words px-4">
+                    {transcript}
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Chat / Captions */}
@@ -802,17 +804,6 @@ const VideoCall: React.FC = () => {
                   </button>
                 </div>
               </form>
-            </div>
-          </div>
-        )}
-        
-        {/* Full-width Transcript Box at the very bottom */}
-        {inCall && transcript && (
-          <div className="mt-6 mb-2 flex-shrink-0">
-            <div className="bg-neutral-900 p-8 rounded-[2.5rem] border-4 border-neutral-800 shadow-2xl overflow-y-auto max-h-48 min-h-[6rem] custom-scrollbar flex items-center justify-center">
-              <p className="text-white text-center text-xl md:text-3xl font-bold tracking-tight leading-tight break-words px-6 drop-shadow-lg">
-                {transcript}
-              </p>
             </div>
           </div>
         )}
