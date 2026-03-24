@@ -213,7 +213,8 @@ const LiveTranslator: React.FC = () => {
               formData.append('frame', blob, 'frame.jpg');
               
               try {
-                const response = await fetch('http://localhost:5001/predict', {
+                const mlBackendUrl = import.meta.env.VITE_ML_BACKEND_URL || 'http://localhost:5001';
+                const response = await fetch(`${mlBackendUrl}/predict`, {
                   method: 'POST',
                   body: formData,
                 });

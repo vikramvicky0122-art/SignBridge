@@ -158,7 +158,8 @@ const VideoCall: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    socketRef.current = io({
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || window.location.origin;
+    socketRef.current = io(backendUrl, {
       transports: ['websocket'],
       upgrade: false,
       reconnectionAttempts: 5,
@@ -356,7 +357,8 @@ const VideoCall: React.FC = () => {
               formData.append('frame', blob, 'frame.jpg');
               
               try {
-                const response = await fetch('http://localhost:5001/predict', { method: 'POST', body: formData });
+                const mlBackendUrl = import.meta.env.VITE_ML_BACKEND_URL || 'http://localhost:5001';
+                const response = await fetch(`${mlBackendUrl}/predict`, { method: 'POST', body: formData });
                 const data = await response.json();
                 if (data && data.letter && data.letter !== 'No hand detected') {
                    setDetectedSign(data.letter);
